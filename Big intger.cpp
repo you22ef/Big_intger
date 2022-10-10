@@ -186,11 +186,15 @@ public:
                     continue;
                 }
             }
+            if (len == num2.len) {
+                subtract.resize(1);
+                subtract[0] = 0;
+                number = subtract;
+                len = subtract.size() + 1;
+                return *this;
+            }
         }
-        if (len == num2.len) {
-            subtract.resize(1);
-            subtract[0] = 0;
-        }
+        
         number = subtract;
         len = subtract.size()+1;
         return *this;
@@ -211,7 +215,7 @@ public:
 
 int main()
 {
-    BigDecimalInt num1("5561"), num2("5561");
+    BigDecimalInt num1("561"), num2("5561");
     BigDecimalInt num3;
     num3 = num1 - num2;
     cout << num3;
