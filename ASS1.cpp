@@ -15,7 +15,7 @@ public:
     }
     BigDecimalInt(string n) {
         len = n.length();
-        number.resize(len); 
+        number.resize(len);
         for (int i = 0; i < len; i++) {
             number[i] = n[i] - '0';
         }
@@ -26,7 +26,7 @@ public:
             sum.resize(len);
             num2.number.resize(len);
             int diffirance = len - num2.len;
-            for (int i = diffirance; i > 0; i--){
+            for (int i = diffirance; i > 0; i--) {
                 num2.number.insert(num2.number.begin(), 0);
             }
             for (int i = len - 1; i >= 0; i--) {
@@ -39,7 +39,7 @@ public:
             len = floor(log10(sum[0]) + 1) + len;
         }
         else {
-            if (len <  num2.len) {
+            if (len < num2.len) {
                 sum.resize(num2.len);
                 number.resize(num2.len);
                 int diffirance = num2.len - len;
@@ -67,30 +67,92 @@ public:
                 }
             }
         }
-        
-        
+
+
         number = sum;
         return *this;
     }
+    BigDecimalInt operator-(BigDecimalInt num2) {
+        vector<signed int>subtract;
+        if (len > num2.len) {
+            while (len != num2.len) {
+                num2.number.insert(num2.number.begin(), 0);
+                num2.len += 1;
+            }
+            subtract.resize(len);
+            for (int i = len-1; i >= 0; i--) {
+                int x = i;
+                while (number[i] < num2.number[i] && i!=0) {
+                    if (number[x - 1] == 0) {
+                        x--;
+                    }
+                    else {
+                        number[x - 1] -= 1;
+                        number[i] += 10;
+                    }
+                }
+                subtract[i] = number[i] - num2.number[i];
+            }
+            int z = 0;
+            while (subtract[z] == 0) {
+                subtract.erase(subtract.begin());
+                z++;
+            }
+        }
+        else if(len < num2.len) {
+            while (len != num2.len) {
+                number.insert(number.begin(), 0);
+                len += 1;
+            }
+            subtract.resize(len);
+            for (int i = len - 1; i >= 0; i--) {
+                int x = i;
+                while (num2.number[i] < number[i] && i != 0) {
+                    if (num2.number[x - 1] == 0) {
+                        x--;
+                    }
+                    else {
+                        num2.number[x - 1] -= 1;
+                        num2.number[i] += 10;
+                    }
+                }
+                subtract[i] = num2.number[i] - number[i];
+            }
+            int z = 0;
+            while (subtract[z] == 0) {
+                subtract.erase(subtract.begin());
+                z++;
+            }
+        }
+        else {
+            subtract.resize(1);
+            subtract[0] = 0;
+        }
+        number = subtract;
+        len = subtract.size()+1;
+        return *this;
+    }
+
+
     friend ostream& operator<< (ostream& output, BigDecimalInt& d) {
-        
-        for (int i = 0; i < d.len-1; i++) {
+
+        for (int i = 0; i < d.len - 1; i++) {
             output << d.number[i];
         }
         return output;
-   }
-    
+    }
+
 };
 
 
 
 int main()
 {
-    BigDecimalInt num1("56"), num2("168");
+    BigDecimalInt num1("168"), num2("5561");
     BigDecimalInt num3;
-    num3 = num1 + num2;
+    num3 = num1 - num2;
     cout << num3;
-    
+
 
 }
 
