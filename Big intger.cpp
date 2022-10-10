@@ -125,6 +125,69 @@ public:
             }
         }
         else {
+            for (int i = 0; i < len; i++) {
+                if (number[i] > num2.number[i]) {
+                    while (len != num2.len) {
+                        num2.number.insert(num2.number.begin(), 0);
+                        num2.len += 1;
+                    }
+                    subtract.resize(len);
+                    for (int i = len - 1; i >= 0; i--) {
+                        int x = i;
+                        while (number[i] < num2.number[i] && i != 0) {
+                            if (number[x - 1] == 0) {
+                                x--;
+                            }
+                            else {
+                                number[x - 1] -= 1;
+                                number[i] += 10;
+                            }
+                        }
+                        subtract[i] = number[i] - num2.number[i];
+                    }
+                    int z = 0;
+                    while (subtract[z] == 0) {
+                        subtract.erase(subtract.begin());
+                        z++;
+                    }
+                    number = subtract;
+                    len = subtract.size() + 1;
+                    return *this;
+                }
+                else if(number[i] > num2.number[i]) {
+                    while (len != num2.len) {
+                        number.insert(number.begin(), 0);
+                        len += 1;
+                    }
+                    subtract.resize(len);
+                    for (int i = len - 1; i >= 0; i--) {
+                        int x = i;
+                        while (num2.number[i] < number[i] && i != 0) {
+                            if (num2.number[x - 1] == 0) {
+                                x--;
+                            }
+                            else {
+                                num2.number[x - 1] -= 1;
+                                num2.number[i] += 10;
+                            }
+                        }
+                        subtract[i] = num2.number[i] - number[i];
+                    }
+                    int z = 0;
+                    while (subtract[z] == 0) {
+                        subtract.erase(subtract.begin());
+                        z++;
+                    }
+                    number = subtract;
+                    len = subtract.size() + 1;
+                    return *this;
+                }
+                else {
+                    continue;
+                }
+            }
+        }
+        if (len == num2.len) {
             subtract.resize(1);
             subtract[0] = 0;
         }
@@ -148,7 +211,7 @@ public:
 
 int main()
 {
-    BigDecimalInt num1("168"), num2("5561");
+    BigDecimalInt num1("5561"), num2("5561");
     BigDecimalInt num3;
     num3 = num1 - num2;
     cout << num3;
