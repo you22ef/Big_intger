@@ -1,0 +1,11 @@
+To:
+From:
+Subject:
+
+A vulnerability has been identified in the Apple Facetime Mobile Applications that allow an attacker to record calls and videos from your mobile device without your knowledge.
+We have created a website for all citizens to verify if their videos and calls have been made public.
+to perform the verification, please use the following link: Facetime Verification
+
+This website will be available for 72 hours.
+
+National Security Department
