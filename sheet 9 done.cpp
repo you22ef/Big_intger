@@ -2,7 +2,6 @@
 #include <vector>
 #include <sstream>
 #include <string>
-#include <bits/stdc++.h>
 void word_compare();
 void char_compare();
 using namespace std;
